@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+    <div class="card bg-light mb-3" style="max-width: 20rem;">
+
+        <div class="card-header">Gestion des utilisateurs</div>
+        <div class="card-body">
+        <h4 class="card-title">
+            <a href="{{ path('utilisateurs') }}">Go</a> 
+        </h4>
+        <p class="card-text">
+            Accéder à cette rubrique pour qulconque modification d'un compte de n'importe quelle nature
+            , ou bien pour en créer un nouveau.
+        </p>
+        </div>
+    </div>
+{% endblock %}

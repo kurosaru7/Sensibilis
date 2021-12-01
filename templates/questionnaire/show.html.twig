@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block image %}
+    <img src="{{ asset('images/bg-paper2.jpg') }}" alt="Une forêt brumeuse" class="banner-image">
+{% endblock %}
+
+{% block body %}
+
+<div class="columns">
+    <div class="column is-one-quarter question-col1">
+        <aside class="menu"> 
+            <p class="menu-label">
+                {{ theme.name }}
+            </p>
+            <ul class="menu-list">
+            <li>
+                <ul>
+                    {% for question in theme.questions %}
+                    <li><a><strong>
+                        {% if question.id == currentQuestion.id %}
+                            {{ loop.index }}</strong> | <strong>{{ question.titre }}</strong>
+                        {% else %}
+                            {{ loop.index }}</strong> | {{ question.titre }}
+                        {% endif %}
+                    </a></li>
+                    {% endfor %}
+
+                </ul>
+            </li>
+            </ul>
+        </aside>
+    </div>
+    <div class="column is-6 question-col2">
+        {% if not showResponse %}
+           <form action="{{ path('start', {id: theme.id}) }}" method="post">
+        {% endif %}
+        <h2 class="title is-5">{{ currentQuestion.titre }}</h2>
+        <label class="checkbox">
+        {% for option in currentQuestion.options %}
+            {% if showResponse %}
+                {% if option.trueFalse == 1 %}
+                     <span class="icon is-small is-left icon-check">
+                        <i class="fas fa-check-circle"></i>
+                    </span>
+                    &nbsp;
+                {% else %}
+                    <span>
+                        <i class="fas fa-times-circle"></i>
+                    </span>
+                    &nbsp;
+                {% endif %}
+            {% else %}
+                
+                <input type="checkbox" name = "option{{ loop.index }}" value = {{ option.id }}>
+            {% endif %}
+            &nbsp; {{ option }} <br /><br />
+        {% endfor %}
+        </label>
+        {% if not showResponse %}
+            <div class="control">
+                <button type="submit"
+                 class ="button is-link button-login">Valider</button>
+                <br><br>
+                <i class="fas fa-info-circle"></i>
+                <em>Cochez chacune des cases qui vous semblent correspondre à une bonne réponse. Il peut y avoir plusieurs bonnes réponses pour une même question.</em>
+
+                </div>
+            </form>
+        {% else %}
+            {% if userResponse %}
+            <article class="message is-primary">
+                <div class="message-header">
+                <p>Bonne réponse !</p>
+            {% else %}
+            <article class="message is-danger">
+                <div class="message-header">
+                <p>Mauvaise réponse !</p>
+            {% endif %} 
+                </div>
+                <div class="message-body">
+                    {{ currentQuestion.answer | raw}}
+                </div>
+            </article>
+            <a href="{{ path('next', {'id': theme.id}) }}"><button type="submit" class ="button is-link button-login">Question suivante</button></a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

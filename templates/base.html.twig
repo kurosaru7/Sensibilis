@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Sensibilis{% endblock %}</title>
+
+        <!-- CSS -->
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+
+        {% block stylesheets %}{% endblock %}
+        <!-- CSS -->
+      
+        <!-- Font -->
+        <!-- <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet"> -->
+        <script src="https://kit.fontawesome.com/4c10bd1994.js" crossorigin="anonymous"></script>
+        <!-- Font -->
+
+    </head>
+    <body>
+      <!-- Header -->
+      <div class="block">
+        <header class="header navbar-fixed-top">
+          <a href="{{ path('home') }}"><img src="{{ asset('images/logo_prefet.jpg') }}" class = "pref-logo"></a>
+          <a href="{{ path('home') }}"><img src="{{ asset('images/logo_sensibilis.png') }}" class = "pref-logo"></a>
+          <a href="{{ path('home') }}" class="header-logo">Sensibilis</a>
+          <h2 class="subtitle header-subtitle">Votre plateforme de sensibilisation.</h2>
+          <nav class="header-menu">
+            {% if not app.user%}
+              <a href="{{ path('security_login') }}">Se connecter</a>
+              <a href="{{ path('security_registration') }}">S'inscrire</a>
+            {% else %}
+              <a href="{{ path('profil') }}">{{ app.user.username }}</a>
+              <a href="{{ path('stats') }}">Vue d'ensemble</a>
+              <a href="{{ path('biblio') }}">Bibliothèque</a>
+
+              {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('admin') }}">Administration</a>
+              {% endif %}
+
+              <a href="{{ path('security_logout') }}">Déconnexion</a>
+            {% endif %}
+          </nav>
+          {% block header %} {% endblock %}
+        </header>
+      </div>
+      <!-- Header -->
+
+
+      <!-- Banner -->
+      <div class="block">
+        <div class="banner">
+          {% block image %}
+          {% endblock %}
+
+          <div class="banner-content">
+            {% block banner %}
+            {% endblock %}
+          </div>
+        </div>
+      </div>
+      <!-- Banner -->
+      {% block body %}{% endblock %}
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script src="{{ asset('js/main.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+
+
+        {% block javascripts %}{% endblock %}
+      <footer class="footer">
+        <div class="content has-text-centered">
+          <p>
+            <strong>Sensibilis</strong>, créée par le SIDSIC, pour les utilisateurs.<br><br>
+            <a href="{{ path('signal')}}">Nous contacter</a>
+          </p>
+        </div>
+
+
+      </footer>
+    </body>
+   
+</html>

@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block image %}
+    <img src="{{ asset('images/bg-alone.jpg') }}" alt="Une forêt brumeuse" class="banner-image">
+{% endblock %}
+
+{% block banner %}
+    <h1 class="subtitle">Inscription</h1>
+
+    {{ form_start(form) }}
+
+        {# {% set formErrors = form.vars.errors.form.getErrors(true) %}
+
+        {% if formErrors|length %}
+          {% for error in formErrors %}
+            <div class="flash-notice">
+              <article class="message is-info">
+                <div class="message-header">
+                  <p>Information</p>
+                </div>
+                <div class="message-body">
+                    {{ error.message }}
+                </div>
+              </article>
+            </div>
+          {% endfor %}
+        {% endif %} #}
+
+        <div class="container registration">
+
+              <div class="field">
+                <p class="control has-icons-left">
+              {{ form_row(form.username, {'attr': {'placeholder':'Nom d\'utilisateur ... '
+            , 'class': 'input'}}) }}
+              </div>
+              
+              <div class="field">
+                <p class="control has-icons-left">
+                {{ form_row(form.password, {'attr': {'placeholder':'Mot de passe ... ', 'class': 'input'}}) }} 
+              </div>
+
+              <div class="field">
+                <p class="control has-icons-left">
+                  {{ form_row(form.confirmPassword, {'attr': {'placeholder':'Confirmer le mot de passe ... ', 'class': 'input'}}) }} 
+              </div>
+
+              <div class="field">
+                <p class="control has-icons-left">
+                {{ form_row(form.origine, {'attr': {'placeholder':'D\'ou venez vous ? ... ', 'class': 'select input'}}) }} 
+              </div>  
+
+            <div class="field">
+              <div class="control">
+              <button class="button is-link button-login">S'inscrire</button>
+              </div>
+          </div>
+
+          
+
+        </div>
+    {{ form_end(form) }}
+    <div class="block">
+
+    </div>
+    <span class="tag is-link">
+      Pour avoir un mot de passe sécurisé, visez au minimum 12 caractères comprenant 4 types de caractères différents (minuscule, majuscule, chiffre, caractère spécial). <br />
+    </span>
+
+      
+
+{% endblock %}

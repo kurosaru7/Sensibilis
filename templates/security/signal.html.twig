@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block image %}
+    <img src="{{ asset('images/bg-plage.jpg') }}" alt="Une forêt brumeuse" class="banner-image">
+{% endblock %}
+
+{% block banner %}
+    <div class= "container registration">
+    {{ form_start(form) }}
+
+    <div class="field">
+        <p class="control has-icons-left">
+      {{ form_row(form.title, {'attr': {'placeholder':'Titre '
+    , 'class': 'input'}}) }}
+      </div>
+
+      <div class="field">
+        <p class="control has-icons-left">
+      {{ form_row(form.content, {'attr': {'placeholder':'Contenu'
+    , 'class': 'input'}}) }}
+      </div>
+
+    <div class="field">
+        <div class="control">
+        <button class="button is-link button-login">Envoyer</button>
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vue d'ensemble{% endblock %}
+
+{% block image %}
+    <img src="{{ asset('images/bg-world.jpg') }}" alt="Une forêt brumeuse" class="banner-image">
+{% endblock %}
+
+
+{% block banner %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.min.js" integrity="sha512-9hzM/Gfa9KP1hSBlq3/zyNF/dfbcjAYwUTBWYX+xi8fzfAPHL3ILwS1ci0CTVeuXTGkRAWgRMZZwtSNV7P+nfw==" crossorigin="anonymous"></script>
+
+    <h1 class="title is-1">Une vue d'ensemble</h1>
+    <h2 class="subtitle">Ma progression.</h2>
+
+    <link rel="stylesheet" href="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/assets/owl.theme.default.min.css">
+
+
+    <div class="owl-carousel owl-theme">
+        {% for result in userResults %}
+        <div class = "graph-item" style="display:block; height:500px !important; margin:0 auto 30px;">
+            {% if userResults[loop.index0]['date'] %}
+                <canvas id="myChart{{ userResults[loop.index0]['theme'][0]}}"></canvas>
+            {% else %}
+                <article class="message is-danger">
+                    <div class="message-header">
+                    <p>{{ themesNames[loop.index0] | raw}}</p>
+                    </div>
+                    <div class="message-body">
+                        Vous n'avez pas fait ce thème.
+                    </div>
+                </article>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        Chart.defaults.global.defaultFontColor = '#fff';
+    </script>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/owl.carousel.js"></script>
+
+    <script>
+
+            {% for result in userResults %}
+                {% if userResults[loop.index0]['date'] %}
+
+                    var ctx{{ userResults[loop.index0]['theme'][0]}} = document.getElementById('myChart{{ userResults[loop.index0]['theme'][0]}}').getContext('2d');
+                    var chart{{ userResults[loop.index0]['theme'][0]}} = new Chart(ctx{{ userResults[loop.index0]['theme'][0]}}, {
+               
+
+            // The type of chart we want to create
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+                labels: {{ userResults[loop.index0]['date'] | json_encode| raw}},
+                datasets: [{
+                    label: "Pourcentage de réussite de {{ app.user.username }}",
+                    borderColor: 'rgb(255, 255, 0)',
+                    data: {{ userResults[loop.index0]['score']  | json_encode }},
+                    pointRadius:     8,
+                    pointStyle: 'rectRot',
+                    pointbackgroundColor: 'rgb(255, 255, 255)'
+                }]
+            },
+
+            options: {
+                title: {
+                    display: true,
+                    text: "{{ themesNames[loop.index0] | raw}}"
+                },
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            drawOnChartArea: false
+                        }
+                     }],
+                    yAxes: [{
+                        gridLines: {
+                        }
+                    }]
+                },
+                annotation: {
+                    annotations: [{
+                        borderColor: '#079992',
+                        borderWidth: 4,
+                        label: {
+                            enabled: true,
+                            yAdjust: 20,
+                            xAdjust: 400,
+                            position: "left",
+                            content: 'Moyenne de tous les utilisateurs'
+                        }
+                    }
+                    ]
+                    
+                }
+                
+                
+            }
+
+            // Configuration options go here
+        });
+        {% endif %}
+    {% endfor %}
+    </script>
+
+    <script type="text/javascript" src="{{ asset('js/carousel.js')}}"></script>
+
+
+    
+    
+
+{% endblock %}
+
+

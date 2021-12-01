@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "bulma": "^0.9.1",
+    "bulma-carousel": "^4.0.4",
+    "chart.js": "^2.9.4",
+    "node-vibrant": "^3.2.1-alpha.1"
+  }
+}

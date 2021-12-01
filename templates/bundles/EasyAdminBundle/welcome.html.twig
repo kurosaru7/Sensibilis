@@ -1,0 +1,45 @@
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block page_title 'Admin' %}
+
+{% block page_content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12 alert-info">
+              <span class="display-3">{{ countUsers }}</span> 
+              {% if countUsers == 0 %}
+                    Aucun utilisateur créer
+                {% elseif countUsers == 1 %}
+                    utilisateur inscrit
+                {% else %}
+                    utilisateurs inscrits
+                {% endif %}.
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-6 alert-success">
+                <span class="display-3">{{ countThemeDispo }}</span> 
+                {% if countThemeDispo == 0 %}
+                    Aucun thème disponible pour les utilisateurs.
+                {% elseif countThemeDispo == 1 %}
+                    thème disponible.
+                {% else %}
+                    thèmes disponibles.
+                {% endif %}
+            </div>
+            <div class="col-6 alert-success">
+                <span class="display-3">{{ countTheme }}</span> 
+                {% if countTheme == 0 %}
+                Aucun thème créer.
+            {% elseif countTheme == 1 %}
+                thème créer.
+            {% else %}
+                thèmes crées.
+            {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

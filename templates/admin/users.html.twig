@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des utilisateurs{% endblock %}
+
+{% block body %}
+    <div class="jumbotron">
+        <h1 class="display-3">Liste des utilisateurs</h1>
+        <p class="lead">
+            <table clas="table table-hover">
+                <thead>
+                    <th scope="col">Identifiant</th>
+                    <th scope="col">Nom d'utilisateur</th>
+                    <th scope="col">Rôle</th>
+                    <th scope="col">Actions</th>
+                </thead>
+                <tbody>
+                    {# On boucle sur les utilisateurs #}
+                    {% for user in users %}
+                        <tr class="table-light">
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.username }}</td>
+                                {# On boucle sur les rôles #}
+                                {% for role in user.roles %}
+                                    {% if role == "ROLE_USER" %}
+                                        <td>Utilisateur</td>
+                                    {% elseif role == "ROLE_EDITOR" %}
+                                        <td>Editeur</td>
+                                    {% elseif role == "ROLE_ADMIN" %}
+                                        <td>Administrateur</td> 
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td><a href="{{ path('admin_modifier_utilisateur', {'id': user.id}) }}">Modifier</a></td>
+                            <td><a href="{{ path('admin_supprimer_utilisateur', {'id': user.id}) }}">Supprimer</a></td>
+                        </tr>
+                        
+                    {% else %}
+                        <p>Aucun utilisateur inscrit</p>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </p>
+        <hr class="my-4">
+        <p>
+            {{ form_start(form) }}
+            <body class="text-center">
+                  {# <img class="mb-4" src="/docs/4.5/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"> #}
+                  <h1 class="h3 mb-3 font-weight-normal">Créer un nouveau compte</h1>
+                  <div class="form-group">
+                    {{ form_row(form.username, {'label': 'Nom d\'utilisateur','attr': {'placeholder':'Nom d\'utilisateur ... '
+                  , 'class': 'form-control'}}) }}
+                  </div>
+                  <div class="form-group">
+                    {{ form_row(form.origine, {'label': 'Origine','attr': {'placeholder':'D\'ou venez vous ? ... ', 'class': 'form-control'}}) }} 
+                  </div>
+                  <div class="form-group">
+                    {{ form_row(form.password, {'label': 'Mot de passe','attr': {'placeholder':'Mot de passe ... ', 'class': 'form-control'}}) }} 
+                  </div>
+                  <div class="form group">
+                    {{ form_row(form.confirmPassword, {'label': 'Confirmation du mot de passe','attr': {'placeholder':'Mot de passe... ', 'class': 'form-control'}}) }} 
+                  </div>
+                  <div class="form group">
+                    {{ form_row(form.role, {'attr': {'class': 'form-control'}}) }} 
+                  </div>
+                  <button type="submit" class="btn btn-primary">Créer</button>
+            </body>
+            {{ form_end(form) }}
+        </p>
+      </div>
+{% endblock %}

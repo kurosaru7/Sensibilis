@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block header %} 
+    <nav class="breadcrumb breadBi" aria-label="breadcrumbs">
+        <ul>
+            <!-- <li><a href="#">Accueil</a></li> -->
+            <li class="is-active ">
+                <a href="#" aria-current="page">
+                    <span class="icon is-small active_bread">
+                        <i class="fas fa-home" aria-hidden="true"></i>
+                    </span>
+                    <span class = "active_bread">Accueil</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+{% endblock %}
+
+{% block image %}
+    <img src="{{ asset('images/bg-library.jpg') }}" alt="Une forêt brumeuse" class="banner-image">
+{% endblock %}
+
+{% block title %}Bibliothèque{% endblock %}
+
+{% block banner %}
+   
+    <h1 class="title">
+        La bibliothèque
+      </h1>
+      <h2 class="subtitle">
+        Pour apprendre.
+      </h2>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/PLqJiEMpZfQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+{% endblock %}
+
+{% block body %}
+            <link rel="stylesheet" href="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/assets/owl.carousel.min.css">
+            <link rel="stylesheet" href="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/assets/owl.theme.default.min.css">
+
+                {% for article in articles %}
+                    <div>
+                        <article class="message">
+                            <div class="message-header">
+                            </div>
+                            <div class="message-body">
+                              <a href="{{ path('showArticle', {article: article.id}) }}">{{article.name }}</a>
+                            </div>
+                          </article>
+                    </div>
+                {% else %}
+                    Aucun article disponible pour le moment.
+                {% endfor %}
+            <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+            <script type="text/javascript" src="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/owl.carousel.js"></script>
+            <script type="text/javascript" src="{{ asset('js/carousel.js')}}"></script>
+    
+{% endblock %}

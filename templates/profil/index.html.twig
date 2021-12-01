@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block image %}
+    <img src="{{ asset('images/bg-sky-night.jpg') }}" alt="Une forêt brumeuse" class="banner-image">
+{% endblock %}
+
+{% block title %}Profil{% endblock %}
+
+{% block banner %}
+          <h1 class="title">
+            Votre profil  
+          </h1>
+          <h2 class="subtitle">
+            Modifier vos informations et consulter vos résultats.
+          </h2>
+{% endblock %}
+
+{% block body %}
+
+<div class="blockProfil">
+  <div class="columns">
+    <div class="column">
+      <h1 class="title is-h1">Ma progression</h1>
+        <table class="table table-hover">
+          <thead>
+            <tr class="table-active">
+              <th scope="col">Thème</th>
+              <th scope="col">Score obtenu</th>
+              <th scope="col">Le </th>
+            </tr>
+          </thead>
+          {% for make in makes %}
+              <tr>
+              <th scope="row">{{ make.theme }}</th>
+                  {% if make.theme.id is defined %}
+                    {% if make.finish %}
+                      <td>{{ make.score}} % de réussite</td>
+                    {% else %}
+                      <td>En cours</td>
+                    {% endif %}
+                      <td>{{ make.date | date("d/m/Y à H:i") }}</td>
+              {% endif %}
+              </tr>
+          {% else %}
+              Vous n'avez pas encore fait de thèmes.
+          {% endfor %}
+              </tbody>
+          </table>
+        </div>
+        <div class="column">
+          {% if diplome %}
+              Félicitations vous avez eu le note maximale à tous les questionnaires !<br>
+              Pour vous récompenser vous trouverer ci-joint votre  diplôme.
+          {% endif %}
+          <h1 class="title is-h1">Mon compte</h1>
+          <div class="form-group row">
+            <div class="col-sm-10">
+              {{ form_start(form) }}
+              {{ form_row(form.password, {'label': 'Nouveau mot de passe','attr': {'placeholder':'Nouveau mot de passe ... '
+                      , 'class': 'form-control' }}) }}
+            </div>
+            <div class="col-sm-10">
+              {{ form_row(form.confirmPassword, {'label': 'Confirmation du mot de passe','attr': {'placeholder':'Mot de passe... ', 'class': 'form-control'}}) }} 
+            </div>
+            <div class="col-sm-10">
+              {{ form_row(form.origine, {'label': 'Origine','attr': {'placeholder':'D\'où venez vous ? ... '
+                      , 'class': 'form-control'}}) }}
+            </div>
+            <div class="col-sm-10">
+              <button type="submit" class="btn btn-primary">Modifier</button>
+            </div>
+          </div>
+          {{ form_end(form) }}
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

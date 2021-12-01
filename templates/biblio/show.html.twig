@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block image %}
+    <img src="{{ asset('images/bg-sea.jpg') }}" alt="Une forêt brumeuse" class="banner-image">
+{% endblock %}
+
+{% block header %} 
+    <nav class="breadcrumb  breadBi" aria-label="breadcrumbs">
+        <ul>
+            <!-- <li><a href="#">Accueil</a></li> -->
+            <li>
+                <a href="{{ path('biblio') }}" style="color: #209c04">
+                    <span class="icon is-small active_bread">
+                        <i class="fas fa-home" aria-hidden="true"></i>
+                    </span>
+                    <span>Accueil</span>
+                </a>
+            </li>
+            <li class="is-active ">
+                <a href="#" aria-current="page">
+                    <span class="icon is-small active_bread">
+                        <i class="fas fa-bookmark" aria-hidden="true"></i>
+                    </span>
+                    <span class = "active_bread">{{ article.name }}</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+{% endblock %}
+
+{% block banner %}
+   
+    <h1 class="title">
+        {{ article.name }}
+    </h1>
+
+{% endblock %}
+
+{% block body %}
+<div class="blockArticle">
+    <div class="columns">
+        <div class="column">
+            <link rel="stylesheet" href="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/assets/owl.carousel.min.css">
+            <link rel="stylesheet" href="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/assets/owl.theme.default.min.css">
+            <div class="owl-carousel2 owl-theme">
+                {% for videolink in videolinks %}
+                    <div class="owl-carousel-biblio owl-theme">
+                        <iframe width="560" height="315" src={{ videolink }} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                {% endfor %}
+            </div>
+            <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+            <script type="text/javascript" src="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/owl.carousel.js"></script>
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    $(".owl-carousel2").owlCarousel(
+                        items: 1,
+                        loop:true,
+                        autoplay:true,
+                        autoplayTimeout:8000,
+                        nav:true
+                    );
+                });
+            </script>
+        </div>
+        <div class="column">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>N°</th>
+                        <th>Liens utiles</th>
+                    </tr>
+                </thead>
+        
+                <tbody>
+                    {% for link in links %}
+                        <tr><th>{{ loop.index }}</th><th><a href="{{ link }}"> {{ link }} </a></th></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

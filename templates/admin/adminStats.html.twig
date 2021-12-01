@@ -1,0 +1,212 @@
+{% extends "base.html.twig" %}
+
+{% block image %}
+    <img src="{{ asset('images/bg-world.jpg') }}" class="banner-image">
+{% endblock %}
+
+{% block banner %}
+
+    <link rel="stylesheet" href="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/assets/owl.carousel.min.css">
+        <link rel="stylesheet" href="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/assets/owl.theme.default.min.css">
+
+        <h2> Statistiques avancées</h2>
+
+    <section class="section">
+        <div class="container">
+        {% for theme in themes %}
+        {% set idTheme = theme.id %}
+            <div class="card is-fullwidth">
+                <header class="card-header">
+                    <p class="card-header-title">{{ theme.name }}</p>
+                   
+
+                        <p class="subtitle is-size-7 has-text-left-touch">
+                            <br><br>
+                            {% if nbstart[idTheme]|length == 0 %}
+                                Aucun utilisateur n'a commencé ce thème.
+                            {% elseif nbstart[idTheme]|length == 1 %}
+                                {{ nbstart[idTheme]|length }} utilisateur a commencé ce thème.
+                            {% else %}
+                                {{ nbstart[idTheme]|length }} utilisateurs ont commencé ce thème.
+                            {% endif %}
+                            |
+                            {% if nbend[idTheme]|length == 0 %}
+                                Aucun utilisateur ne l'a terminé.
+                            {% elseif nbend[idTheme]|length == 1 %}
+                                {{ nbend[idTheme]|length }} utilisateur l'a terminé.
+                            {% else %}
+                                {{ nbend[idTheme]|length }} utilisateurs l'ont terminé.
+                            {% endif %}
+                        </p>
+                    <a class="card-header-icon card-toggle">
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                </header>
+                <div class="card-content is-hidden">
+                    <div class="content">
+
+                        {% if globalResults[idTheme] is defined %}
+                        <p class="subtitle is-size-7 has-text-right">
+                            Moyenne générale de tous les utilisateurs : {{ globalResults[idTheme]}} %
+                        </p>
+                        {% else %}
+                            <p class="subtitle is-size-7 has-text-right">
+                                Il n'y a pas encore de moyenne générale pour ce thème.
+                            </p>
+                        {% endif %}
+
+                        {% for question in questions %}
+                        {% if question.theme.id == theme.id %}
+                        <p class="subtitle is-size-6 has-text-left">
+                            {{ question.indexQ }} | {{ question.titre }}
+                            
+                            {% if results[question.id] is defined %}
+                                <p class="subtitle is-size-7 has-text-left" style="color: blue;">{{ results[question.id] }} % de réussite.</p>
+                            {% else %}
+                            <p class="subtitle is-size-7 has-text-left" style="color: blue;">Personne n'a encore répondu à cette question.</p>
+                            {% endif %}
+                        </p>
+                        {% for key, stat in stats %}
+                            {% if key == theme.id %}
+                            
+                            {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                        <article class="message">
+                            <div class="message-header">
+                              <p clas=" subtitle is-size-7">Plus d'informations</p>
+                            </div>
+                            <div class="message-body">
+                              <p class="subtitle is-size-7 has-text-left">
+                                <i class="fas fa-info-circle"></i> &nbsp; 
+
+                                {% if startToday[idTheme] is defined %}
+                                Ce thème à été commencé {{ startToday[idTheme]|length }} fois aujourd'hui,
+                                {% else %}
+                                Personne n'à commencé ce thème aujourdhui,
+                                {% endif %}
+
+                                {% if startThisWeek[idTheme] is defined %}
+                                 {{ startThisWeek[idTheme]|length }} fois cette semaine,
+                                {% else %}
+                                 personne n'à commencé ce thème cette semaine,
+                                {% endif %}
+
+                                {% if start30DaysAgo[idTheme] is defined %}
+                                 {{ start30DaysAgo[idTheme]|length }} fois ces 30 derniers jours.
+                                {% else %}
+                                    personne n'à commencé ce thème ces 30 derniers jours.
+                                {% endif %}
+
+                                <br><br>
+                                <i class="fas fa-angle-right"></i> &nbsp; 
+
+                                {% if prefResults[idTheme] is defined %}
+                                    Le score moyen en préfecture est de {{ prefResults[idTheme] }} %.
+                                {% else %}
+                                    Aucun utilisateur de la préfecture n'a encore fait ce thème.
+                                {% endif %}
+                                <br><br>
+                                <i class="fas fa-angle-right"></i> &nbsp; 
+
+                                {% if DDPPResults[idTheme] is defined %}
+                                Le score moyen en DDPP est de {{ DDPPResults[idTheme] }} %.
+                                {% else %}
+                                    Aucun utilisateur de la DDPP n'a encore fait ce thème.
+                                {% endif %}
+                                <br><br>
+                                <i class="fas fa-angle-right"></i> &nbsp; 
+
+                                {% if DDTMResults[idTheme] is defined %}
+                                Le score moyen en DDTM est de {{ DDTMResults[idTheme] }} %.
+                                {% else %}
+                                    Aucun utilisateur de la DDTM n'a encore fait ce thème.
+                                {% endif %}
+                              
+
+
+
+
+                              </p>
+                            </div>
+                          </article>
+                        
+                     
+
+                </div>
+            </div>
+       {% endfor %}
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let cardToggles = document.getElementsByClassName('card-toggle');
+            for (let i = 0; i < cardToggles.length; i++) {
+                cardToggles[i].addEventListener('click', e => {
+                    e.currentTarget.parentElement.parentElement.childNodes[3].classList.toggle('is-hidden');
+                });
+            }
+        });
+    </script>
+
+    
+      
+    <!-- <aside class="menu">
+        <p class="menu-label">
+          General
+        </p>
+        <ul class="menu-list">
+          <li><a>Dashboard</a></li>
+          <li><a>Customers</a></li>
+        </ul>
+        <p class="menu-label">
+          Administration
+        </p>
+        <ul class="menu-list">
+          <li><a>Team Settings</a></li>
+          <li>
+            <a class="is-active">Manage Your Team</a>
+            <ul>
+              <li><a>Members</a></li>
+              <li><a>Plugins</a></li>
+              <li><a>Add a member</a></li>
+            </ul>
+          </li>
+          <li><a>Invitations</a></li>
+          <li><a>Cloud Storage Environment Settings</a></li>
+          <li><a>Authentication</a></li>
+        </ul>
+        <p class="menu-label">
+          Transactions
+        </p>
+        <ul class="menu-list">
+          <li><a>Payments</a></li>
+          <li><a>Transfers</a></li>
+          <li><a>Balance</a></li>
+        </ul>
+      </aside> -->
+    
+
+
+
+
+
+
+
+
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/owl.carousel.js"></script>
+        <script type="text/javascript" src="{{ asset('js/carousel.js')}}"></script>
+{% endblock %}
+
+
+
+
+
+
+
+

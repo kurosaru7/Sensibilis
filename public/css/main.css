@@ -1,0 +1,294 @@
+@font-face {
+	font-family: "Marianne";
+	src: url('../polices/marianne-regular-webfont.ttf');
+}
+
+
+/*
+Header
+*/
+.navbar-fixed-top.scrolled {
+    background-color:rgba(0,0,0,0.5);
+    transition: background-color 200ms linear;
+}
+
+.navbar-fixed-top.scrolled background{
+    opacity: 0.1;
+}
+
+
+.header {
+    width : 100%;
+    margin-left: 0;
+    height: 120px;
+    line-height: 70px;
+    background-color:rgba(0, 0, 0, 0) ;
+    z-index: 999;
+    position: fixed;
+}
+
+.header .header-logo {
+    color: #ffffff;
+    font-family: 'Marianne';
+    float: left;
+    font-size: 30px;
+    margin-left: 30px;
+    margin-top: 35px;
+}
+
+.header .header-subtitle {
+    color: #ffffff;
+    font-family: 'Marianne';
+    float: left;
+    font-size: 13px;
+    margin-left: -130px;
+    margin-top: 90px;
+}
+
+.header .header-menu {
+    float: right;
+    margin-right: 30px;
+    margin-top: 25px;
+}
+
+.header .header-menu a {
+    margin-right: 15px;
+    color: #ffffff;
+}
+
+.header .header-menu a:hover {
+    color: #78e08f;
+}
+
+/* 
+Banner
+*/
+
+.flash-notice {
+    width: 20%;
+    margin-top: -150px;
+    display:block;
+    margin-left: 40%;
+    position: fixed;
+}
+
+.flash-notice-unfixed {
+    width: 20%;
+    display:block;
+    margin-top: 150px;
+    margin-left: 40%;
+}
+
+.banner {
+    margin-top: -24px;
+}
+
+.banner-image {
+    z-index: 1;
+}
+
+.banner .banner-image-text {
+    z-index: 10;
+    position: absolute;
+    margin-top: -80px;
+    margin-left: 82%;
+    color: white;
+    font-style: italic;
+}
+
+.banner .banner-content {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 30%;
+}
+
+.banner .banner-content h1,
+.banner .banner-content h2 {
+    color: #ffffff;
+}
+
+
+/*
+Table
+*/
+
+.table .table-home {
+    width: 150%;
+}
+
+
+
+/*
+Theme
+*/
+
+.theme_image {
+    max-width:10%;  
+}
+
+.theme .theme-single-element {
+    text-align: center;
+}
+
+.theme .theme-single-element icon {
+    font-size: 120 px;
+    text-align: center;
+}
+
+.theme .theme-single-element p{
+    margin-top: 20px;
+}
+
+.progress {
+    margin-top: -30px;
+    margin-left: 150px;
+}
+
+.icon-check
+{
+    color: #78e08f;
+}
+
+
+/*
+Login
+*/
+.login {
+    width: 20%;
+    display:block;
+    margin-left: 40%;
+    position: fixed;
+}
+
+.login input{
+    background-color:rgba(0, 0, 0, 0) ;
+    color: #ffffff;
+}
+
+.login input::placeholder{
+    color: #ffffff;
+}
+
+.button-login {
+    background-color: #78e08f;
+}
+
+/*
+Registration
+*/
+
+.registration {
+    width: 20%;
+    display:block;
+    margin-left: 40%;
+}
+
+.registration input{
+    background-color:rgba(0, 0, 0, 0) ;
+    color: #ffffff;
+}
+
+.registration selectInsc{
+    background-color:rgba(0, 0, 0, 0) ;
+    color: #ffffff;
+}
+
+.registration input::placeholder{
+    color: #ffffff;
+}
+
+.registration select {
+    background-color:rgba(0, 0, 0, 0) ;
+    color: #ffffff;
+}
+/*
+Info sensibilis
+*/
+
+.sensibilis-info {
+    margin-top: -45px;
+}
+
+
+/*
+Question Page
+*/
+.question-col1 {
+    margin-left: 10px;
+}
+
+
+.question-col2 {
+    margin-left: 170px;
+}
+
+
+/*
+Bibliothèque
+*/
+
+.breadBi {
+    margin-top: 64px;
+    margin-left: 400px;
+}
+
+.active_bread {
+    color: white;
+}
+
+/*
+Page Article
+*/
+
+.blockArticle {
+    margin-left: 50px;
+}
+
+/*
+Profil
+*/
+
+.chart-div {
+    margin-top: 120px;
+}
+
+/*
+Page Stats
+*/
+
+.graph-item {
+    width: 68%;
+}
+
+/*
+Footer
+*/
+
+.pref-logo {
+    width: 6%;
+    float: left;
+    margin-left: 30px;
+    margin-top: 10px;
+}
+
+
+
+/*
+Photo Banner
+*/
+
+/*
+Page admin stats
+*/
+
+.card+.card
+{
+	margin-top: 20px
+}
+
+
+/* 
+Test
+*/
+

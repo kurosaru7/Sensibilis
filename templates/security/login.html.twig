@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block image %}
+    <img src="{{ asset('images/bg-sun.jpg') }}" alt="Une forêt brumeuse" class="banner-image">
+{% endblock %}
+
+{% block banner %}
+        {% for message in app.flashes('notice') %}
+            <div class="flash-notice">
+                <article class="message is-info">
+                    <div class="message-header">
+                      <p>Information</p>
+                    </div>
+                    <div class="message-body">
+                        {{ message }}
+                    </div>
+                  </article>
+            </div>
+        {% endfor %}
+
+        <form action="{{ path('security_login') }}" method="post" class="login">
+
+        <h1 class="subtitle">Connexion</h1>
+            <div class="block">
+                <div class="field">
+                    <p class="control has-icons-left">
+                    <input class="input" placeholder="Votre nom d'utilisateur ..." required name="_username" type="text">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                    </span>
+                </div>
+                <div class="field">
+                    <p class="control has-icons-left">
+                    <input class="input" type="password" placeholder="Votre mot de passe ..." required name="_password" >
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-lock"></i>
+                    </span>
+                    </p>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                    <button class="button is-link button-login">Se connecter</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+{% endblock %}

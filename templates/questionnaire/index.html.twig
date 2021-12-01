@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block image %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <img src="{{ asset('images/bg-house.jpg') }}" alt="Une forêt brumeuse" class="banner-image">
+    {% else %}
+        <img src="{{ asset('images/bg-catedrale.png') }}" alt="Une forêt brumeuse" class="banner-image">
+        <div class="banner-image-text">
+        <article class="message is-dark is-small">
+            <div class="message-body">
+                La cathédrale Notre-Dame d'Évreux.
+            </div>
+        </article>
+        </div>
+    {% endif %}
+{% endblock %}
+{% block banner %}  
+{% for message in app.flashes('notice') %}
+    <div class="flash-notice-unfixed">
+        <article class="message is-info">
+            <div class="message-header">
+                <p>Information</p>
+            </div>
+            <div class="message-body">
+                {{ message }}
+            </div>
+            </article>
+    </div>
+{% endfor %}
+
+{% if app.user %}
+    <h1 class="title is-1">Bonjour,
+    {% if is_granted('ROLE_ADMIN')  %}
+        Administrateur 
+    {% endif %}
+    {{ app.user.username }}.</h1>
+{% else %}
+  <h1 class="title is-1">Bienvenue sur Sensibilis</h1>
+  <h2 class="subtit le is-6">La plateforme de sensibilisation développée par la préfecture de l'Eure <br />
+      à destination des DDI et de la préfecture.
+  </h2>
+  <br>
+  <a href="{{ path('security_registration') }}"><button class="button is-link" a href="{{ path('security_registration') }}">Je m'inscris</button></a>
+{% endif %} 
+
+
+{% if app.user %}
+    <div class="container">
+        <h2 class="title is-4">Voici les thèmes disponibles, n'hésitez pas à les refaire pour améliorer vos connaissances !</h2>
+
+        <link rel="stylesheet" href="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/assets/owl.carousel.min.css">
+        <link rel="stylesheet" href="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/assets/owl.theme.default.min.css">
+
+
+        <div class="owl-carousel owl-theme">
+        {% for theme in themes %}
+
+            <article class="message is-dark">
+            <div class="message-header">
+                <p>{{ theme.name }}</p>
+                <a href="{{ path('start', {id: theme.id}) }}">
+                        <button class="button">
+                            {% if getProgress[loop.index0] %}
+                                {% if getFinish[loop.index0]  %}
+                                    Recommencer
+                                {% else %}
+                                    Continuer | Question {{ getProgress[loop.index0] }}
+                                {% endif %}
+                            {% else %}
+                                Commencer
+                            {% endif %}
+                        </button>
+                    </a>
+            </div>
+                <div class="message-body">
+                    <div class="column">
+                        <p class="subtitle">{{ theme.description | raw }}</p>
+                     </div>
+                </div>
+            </article>
+        {% endfor %}
+        </div>
+        
+
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/owl.carousel.js"></script>
+        <script type="text/javascript" src="{{ asset('js/carousel.js')}}"></script>
+    </div>
+{% endif %}
+{% endblock %}
+
+{% block body %}
+
+  
+    {% if not app.user %}
+    <div class="sensibilis-info">
+        <article class="message is-dark">
+            <div class="message-header">
+            <p>Sensibilis ?</p>
+            </div>
+            <div class="message-body">
+                Sensibilis est une plateforme de sensibilisation créée pour vous, qui sera régulièrement alimentée  en contenu.
+                            
+                            La première campagne
+                            sera centrée sur la sécurité informatique.
+                            Sont à votre disposition un questionnaire par semaine, des liens supplémentaires, et une 
+                            bibliothèque concentrant l'essentiel des informations.
+            </div>
+        </article>
+    </div>
+    {% endif %}
+{% endblock %}
